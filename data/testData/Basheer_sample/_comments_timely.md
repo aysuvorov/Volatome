@@ -527,3 +527,110 @@ class DataLoader:
                 self.volatome_void.add_volatome(volatome)
 
 ```
+
+
+## Neo4j
+
+Create neo4j database from table in Python:
+
+| 526.03257085331836 | 742.04741898699762 | 44.01450529149254 | 49.0489926172728 | 96.99144370755021 | PersonID | ProbeId    |Breathing   | Normed    | DateTime                   | target_short_name | target_icd_10 | target_icd_11 |
+|-------------------:|-------------------:|------------------:|-----------------:|------------------:|---------:|:-----------|---|-----------|:---------------------------|:------------------|:--------------|:--------------|
+|          0.0347108 |           0.289125 |         0.0396336 |        0.0231194 |           3.52877 |    17558 | ProbeId_2  |Normal   | Raw       | 2024-08-30 23:45:47.877923 | ИБС            | I20.8         | BA40.1        |
+|           0.936501 |            1.91298 |         0.0739828 |         0.087051 |           3.51884 |    21569 | ProbeId_23 |Normal   | Raw       | 2024-08-30 23:45:47.877936 | ИБС            | I20.8         | BA40.1        |
+|          0.0703742 |            2.49884 |         0.0789201 |         0.101689 |           2.68527 |    21094 | ProbeId_74 |FRC   | Raw       | 2024-08-30 23:45:47.877968 | Healthy           | Healthy       | Healthy       |
+|          0.0917151 |            1.27432 |         0.0940473 |        0.0762481 |           5.33148 |    19907 | ProbeId_20 |FRC   | Raw       | 2024-08-30 23:45:47.877934 | ИБС            | I20.8         | BA40.1        |
+|           0.741693 |           0.964586 |         0.0550934 |        0.0501778 |           3.35456 |    20195 | ProbeId_60 |Normal   | Raw       | 2024-08-30 23:45:47.877960 | Healthy           | Healthy       | Healthy       |
+|           0.074873 |           0.811691 |         0.0709599 |        0.0548712 |            3.9698 |    21387 | ProbeId_71 |Normal   | [2H]O[2H] | 2024-08-30 23:45:47.877967 | Healthy           | Healthy       | Healthy       |
+|           0.074873 |           0.811691 |         0.0709599 |        0.0548712 |            3.9698 |    21387 | ProbeId_70 |Normal   | Raw       | 2024-08-30 23:47:52        | Healthy           | Healthy       | Healthy       |
+|           0.106864 |            3.14315 |         0.0991804 |         0.139365 |           4.15313 |    20007 | ProbeId_14 |Normal   | Raw       | 2024-08-30 23:45:47.877930 | ИБС            | I20.8         | BA40.1        |
+|           0.171386 |            3.38432 |         0.0795997 |         0.137908 |           2.83617 |    18380 | ProbeId_51 |Normal   | Raw       | 2024-08-30 23:45:47.877954 | Healthy           | Healthy       | Healthy       |
+
+and a list of Substances: [Unknown0, Unknown1, Unknown2, Unknown3, Unknown4]
+
+conditions:
+
+- Substanse object is the main object. It can be set manually or provided. 
+- Substanse IS_MASKED with 1 or more VOCs. By default every VOC IS_MASKED to its own unique Substance
+
+- PersonID column represent individual Persons, can be non-unique, that BREATH_OUT Volatomes
+- ProbeId column represent individual Volatomes (rows of the table), should be unique
+- Person is CONDITIONED with one or more Targets
+
+- DateTime column represent date and time when the Volatome was taken
+  
+- Volatome consists of VOCs - their names are column names '526_03257085331836', '742.04741898699762', '44.01450529149254', '49.0489926172728', '96.99144370755021'
+- in the cells of columns '526.03257085331836', '742.04741898699762', '44.01450529149254', '49.0489926172728', '96.99144370755021' are VOC values
+- Volatome is ASSOSIATED with one or more Targets
+
+- Volatome can be from 'Normal' or 'FRC' breathing (Breathing column)
+  
+- VOCs are NORMED by any predefined ion (Normed column)
+  
+- Target has short name (values from target_short_name columns), icd_10 and icd_11 id ('target_short_name', 'target_icd_10' column values)
+
+
+## CouchDB
+
+Create CouchDB database from table in Python:
+
+| 526_03257085331836 | 742_04741898699762 | 44_01450529149254 | 49_0489926172728 | 96_99144370755021 | PersonID | ProbeId    | DateTime                   | target_short_name | target_icd_10 | target_icd_11 |
+|------------------:|------------------:|------------------:|-----------------:|------------------:|----------:|:-----------|:---------------------------|:------------------|:--------------|:--------------|
+|         0.0347108 |          0.289125 |         0.0396336 |        0.0231194 |           3.52877 |     17558 | ProbeId_2  | 2024-08-30 23:45:47.877923 | ИБС            | I20.8         | BA40.1        |
+|          0.936501 |           1.91298 |         0.0739828 |         0.087051 |           3.51884 |     21569 | ProbeId_23 | 2024-08-30 23:45:47.877936 | ИБС            | I20.8         | BA40.1        |
+|         0.0703742 |           2.49884 |         0.0789201 |         0.101689 |           2.68527 |     21094 | ProbeId_74 | 2024-08-30 23:45:47.877968 | Healthy           | Healthy       | Healthy       |
+|         0.0917151 |           1.27432 |         0.0940473 |        0.0762481 |           5.33148 |     19907 | ProbeId_20 | 2024-08-30 23:45:47.877934 | ИБС            | I20.8         | BA40.1        |
+|          0.741693 |          0.964586 |         0.0550934 |        0.0501778 |           3.35456 |     20195 | ProbeId_60 | 2024-08-30 23:45:47.877960 | Healthy           | Healthy       | Healthy       |
+|          0.074873 |          0.811691 |         0.0709599 |        0.0548712 |            3.9698 |     21387 | ProbeId_71 | 2024-08-30 23:45:47.877967 | Healthy           | Healthy       | Healthy       |
+|          0.106864 |           3.14315 |         0.0991804 |         0.139365 |           4.15313 |     20007 | ProbeId_14 | 2024-08-30 23:45:47.877930 | ИБС            | I20.8         | BA40.1        |
+|          0.171386 |           3.38432 |         0.0795997 |         0.137908 |           2.83617 |     18380 | ProbeId_51 | 2024-08-30 23:45:47.877954 | Healthy           | Healthy       | Healthy       |
+
+conditions:
+
+- PersonID column represent individual persons, can be non-unique, that BREATH OUT Volatomes
+- ProbeId column represent individual Volatomes (rows of the table), should be unique
+- DateTime column represent date and time when the Volatome was taken
+- Volatome consists of VOCs - their names are column names '526_03257085331836', '742_04741898699762', '44_01450529149254', '49_0489926172728', '96_99144370755021'
+- in the cells of columns '526_03257085331836', '742_04741898699762', '44_01450529149254', '49_0489926172728', '96_99144370755021' are VOC values
+- Volatome can be from 'Normal' or 'Forced' breathing
+- VOCs values can be 'Raw' or normed by any user defined ion (str)
+- Target is a condition the Volatome and VOCs are associated with.
+- Target has short name (values from target_short_name columns), icd_10 and icd_11 id ('target_short_name', 'target_icd_10' column values)
+
+
+
+
+| ProbeId    | 96.99144370755021 | 44.01450529149254 | 49.0489926172728 | 742.04741898699762 | 526.03257085331836 |
+|:-----------|------------------:|------------------:|-----------------:|-------------------:|-------------------:|
+| ProbeId_14 |           2.83617 |               nan |              nan |                nan |                nan |
+| ProbeId_14 |               nan |         0.0795997 |              nan |                nan |                nan |
+| ProbeId_14 |               nan |               nan |         0.137908 |                nan |                nan |
+| ProbeId_14 |               nan |               nan |              nan |            3.38432 |                nan |
+| ProbeId_14 |               nan |               nan |              nan |                nan |           0.171386 |
+| ProbeId_20 |               nan |               nan |              nan |                nan |           0.171386 |
+| ProbeId_20 |               nan |         0.0795997 |              nan |                nan |                nan |
+| ProbeId_20 |           2.83617 |               nan |              nan |                nan |                nan |
+| ProbeId_20 |               nan |               nan |         0.137908 |                nan |                nan |
+| ProbeId_20 |               nan |               nan |              nan |            3.38432 |                nan |
+| ProbeId_23 |               nan |               nan |              nan |                nan |           0.171386 |
+| ProbeId_23 |           2.83617 |               nan |              nan |                nan |                nan |
+| ProbeId_23 |               nan |         0.0795997 |              nan |                nan |                nan |
+| ProbeId_23 |               nan |               nan |         0.137908 |                nan |                nan |
+| ProbeId_23 |               nan |               nan |              nan |            3.38432 |                nan |
+| ProbeId_2  |               nan |               nan |              nan |                nan |           0.171386 |
+| ProbeId_2  |               nan |               nan |              nan |            3.38432 |                nan |
+| ProbeId_2  |               nan |               nan |         0.137908 |                nan |                nan |
+| ProbeId_2  |           2.83617 |               nan |              nan |                nan |                nan |
+| ProbeId_2  |               nan |         0.0795997 |              nan |                nan |                nan |
+
+
+
+| 526.03257085331836 | 742_04741898699762 | 44_01450529149254 | 49_0489926172728 | 96_99144370755021 | ProbeId    |
+|-------------------:|-------------------:|------------------:|-----------------:|------------------:|:-----------|
+|          0.0347108 |           0.289125 |         0.0396336 |        0.0231194 |           3.52877 | ProbeId_2  |
+|           0.936501 |            1.91298 |         0.0739828 |         0.087051 |           3.51884 | ProbeId_23 |
+|          0.0703742 |            2.49884 |         0.0789201 |         0.101689 |           2.68527 | ProbeId_74 |
+|          0.0917151 |            1.27432 |         0.0940473 |        0.0762481 |           5.33148 | ProbeId_20 |
+|           0.741693 |           0.964586 |         0.0550934 |        0.0501778 |           3.35456 | ProbeId_60 |
+|           0.074873 |           0.811691 |         0.0709599 |        0.0548712 |            3.9698 | ProbeId_71 |
+|           0.106864 |            3.14315 |         0.0991804 |         0.139365 |           4.15313 | ProbeId_14 |
+|           0.171386 |            3.38432 |         0.0795997 |         0.137908 |           2.83617 | ProbeId_51 |
